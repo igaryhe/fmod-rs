@@ -85,17 +85,8 @@ impl Bank {
         let capacity = self.event_count()?;
         let mut list = vec![ptr::null_mut(); capacity as usize];
         let mut count = 0;
-        let result =
-            unsafe { sys::FMOD_Studio_Bank_GetEventList(self.0, list.as_mut_ptr(), capacity, &mut count) };
-        if result == sys::FMOD_RESULT::FMOD_OK {
-            let mut event_list = vec![];
-            for i in list.into_iter() {
-                event_list.push(unsafe { EventDescription::new(i) });
-            }
-            Ok(event_list)
-        } else {
-            Err(anyhow!(result))
-        }
+        fmod_call!(FMOD_Studio_Bank_GetEventList, self.0, list.as_mut_ptr(), capacity, &mut count =>
+                   list.into_iter().map(|i| unsafe { EventDescription::new(i) }).collect())
     }
 
     pub fn bus_count(&self) -> Result<i32> {
@@ -107,18 +98,8 @@ impl Bank {
         let capacity = self.bus_count()?;
         let mut list = vec![ptr::null_mut(); capacity as usize];
         let mut count = 0;
-        let result = unsafe {
-            sys::FMOD_Studio_Bank_GetBusList(self.0, list.as_mut_ptr(), capacity, &mut count)
-        };
-        if result == sys::FMOD_RESULT::FMOD_OK {
-            let mut bus_list = vec![];
-            for i in list.into_iter() {
-                bus_list.push(unsafe { Bus::new(i) });
-            }
-            Ok(bus_list)
-        } else {
-            Err(anyhow!(result))
-        }
+        fmod_call!(FMOD_Studio_Bank_GetBusList, self.0, list.as_mut_ptr(), capacity, &mut count =>
+                  list.into_iter().map(|i| unsafe { Bus::new(i) }).collect())
     }
 
     pub fn vca_count(&self) -> Result<i32> {
@@ -130,18 +111,8 @@ impl Bank {
         let capacity = self.vca_count()?;
         let mut list = vec![ptr::null_mut(); capacity as usize];
         let mut count = 0;
-        let result = unsafe {
-            sys::FMOD_Studio_Bank_GetVCAList(self.0, list.as_mut_ptr(), capacity, &mut count)
-        };
-        if result == sys::FMOD_RESULT::FMOD_OK {
-            let mut vca_list = vec![];
-            for i in list.into_iter() {
-                vca_list.push(unsafe {Vca::new(i)});
-            }
-            Ok(vca_list)
-        } else {
-            Err(anyhow!(result))
-        }
+        fmod_call!(FMOD_Studio_Bank_GetVCAList, self.0, list.as_mut_ptr(), capacity, &mut count =>
+                  list.into_iter().map(|i| unsafe { Vca::new(i) }).collect())
     }
 
     pub fn user_data(&self) -> Result<Vec<u8>> {
