@@ -3,7 +3,7 @@ extern crate bindgen;
 use std::{env, path::PathBuf};
 
 fn main() {
-    println!("cargo:rerun-if-changed=wrapper.hpp");
+    println!("cargo:rerun-if-changed=wrapper.h");
     println!("cargo:rerun-if-changed=build.rs");
     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
     bindgen::Builder::default()
@@ -15,7 +15,7 @@ fn main() {
         .clang_arg(
             "-Ic:/Program Files (x86)/FMOD SoundSystem/FMOD Studio API Windows/api/core/inc",
         )
-        .header("wrapper.hpp")
+        .header("wrapper.h")
         .constified_enum_module("FMOD_STUDIO_LOADING_STATE")
         .constified_enum_module("FMOD_STUDIO_LOAD_MEMORY_MODE")
         .constified_enum_module("FMOD_STUDIO_PARAMETER_TYPE")
