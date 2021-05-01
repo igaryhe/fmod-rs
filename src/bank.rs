@@ -1,8 +1,8 @@
-use crate::{bus::Bus, common::GUID, event_description::EventDescription, vca::Vca};
+use crate::{bus::Bus, event_description::EventDescription, vca::Vca};
 use anyhow::{anyhow, Result};
 use core::ptr;
 use std::ffi::CString;
-use crate::fmod_call;
+use crate::{fmod_call, GUID};
 
 pub struct Bank(*mut sys::FMOD_STUDIO_BANK);
 

@@ -1,14 +1,9 @@
-use crate::common::GUID;
-use crate::fmod_call;
+use crate::{fmod_call, MemoryUsage, ChannelGroup, GUID};
 use anyhow::{anyhow, Result};
 use core::ptr;
 use std::ffi::CString;
 
 pub struct Bus(*mut sys::FMOD_STUDIO_BUS);
-
-pub struct Channelgroup(*mut sys::FMOD_CHANNELGROUP);
-
-pub type MemoryUsage = sys::FMOD_STUDIO_MEMORY_USAGE;
 
 impl Bus {
     pub unsafe fn new(bus: *mut sys::FMOD_STUDIO_BUS) -> Self {
@@ -83,9 +78,9 @@ impl Bus {
         }
     }
 
-    pub fn channel_group(&self) -> Result<Channelgroup> {
+    pub fn channel_group(&self) -> Result<ChannelGroup> {
         let mut channel_group: *mut sys::FMOD_CHANNELGROUP = ptr::null_mut();
-        fmod_call!(FMOD_Studio_Bus_GetChannelGroup, self.0, &mut channel_group => Channelgroup(channel_group))
+        fmod_call!(FMOD_Studio_Bus_GetChannelGroup, self.0, &mut channel_group => ChannelGroup(channel_group))
     }
 
     pub fn cpu_usage(&self) -> Result<(u32, u32)> {

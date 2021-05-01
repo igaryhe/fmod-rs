@@ -1,5 +1,3 @@
-use thiserror::Error;
-
 pub enum FModError {
     BadCommand,
     ChannelAlloc,

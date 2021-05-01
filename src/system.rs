@@ -1,10 +1,8 @@
 use anyhow::{anyhow, Result};
 use core::ptr;
-use crate::fmod_call;
+use crate::{fmod_call, AdvancedSettings};
 
 pub struct System(*mut sys::FMOD_STUDIO_SYSTEM);
-
-type AdvancedSettings = sys::FMOD_STUDIO_ADVANCEDSETTINGS;
 
 impl System {
     pub fn new() -> Result<Self> {

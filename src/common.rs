@@ -1,7 +1,7 @@
 use std::ffi::CString;
 use core::ptr;
 use anyhow::{anyhow, Result};
-use crate::fmod_call;
+use crate::{GUID, fmod_call};
 
 bitflags! {
     pub struct Initflags: u32 {
@@ -84,8 +84,6 @@ bitflags! {
         const SKIP_BAND_LOAD = 0x00000004;
     }
 }
-
-pub type GUID = sys::FMOD_GUID;
 
 pub fn parse_id(id: &str) -> Result<GUID> {
     let raw_id = CString::new(id).expect("CString::new failed");

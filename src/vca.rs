@@ -1,5 +1,4 @@
-use crate::common::GUID;
-use crate::fmod_call;
+use crate::{fmod_call, GUID};
 use anyhow::{anyhow, Result};
 use core::ptr;
 use std::ffi::CString;

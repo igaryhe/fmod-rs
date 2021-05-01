@@ -13,6 +13,12 @@ pub mod command_replay;
 pub mod event_description;
 pub mod event_instance;
 
+pub type GUID = sys::FMOD_GUID;
+pub type AdvancedSettings = sys::FMOD_STUDIO_ADVANCEDSETTINGS;
+pub type MemoryUsage = sys::FMOD_STUDIO_MEMORY_USAGE;
+
+pub struct ChannelGroup(*mut sys::FMOD_CHANNELGROUP);
+
 #[macro_export]
 macro_rules! fmod_call {
     ($func:ident, $($param:expr),* => $val:expr) => {
